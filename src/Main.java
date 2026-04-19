@@ -1,17 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.util.ArrayList;
-import java.io.File;
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-
 public class Main {
     public static void main(String[] args) throws Exception{
-        //this is the place where it runs the methods and creates a panel for us.
         JFrame jframe = new JFrame();
 
         jframe.setTitle("CSA Project");
@@ -22,10 +15,11 @@ public class Main {
 
         jframe.getContentPane().setBackground(Color.gray);
 
-        JButton bfsButton = new JButton("BFS");
-
-
         GraphPanel panel = new GraphPanel();
+
+        JPanel buttonPanel = new JPanel();
+
+        JButton bfsButton = new JButton("BFS");
         bfsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -33,11 +27,41 @@ public class Main {
             }
         });
 
+        JButton dijkstraButton = new JButton("Dijkstra");
+        dijkstraButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.Dijikstra();
+            }
+        });
+
+        JButton aStarButton = new JButton("A*");
+        aStarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.AStar();
+            }
+        });
+
+        //adding reset button
+        JButton resetButton = new JButton("Reset");
+        resetButton.setForeground(Color.RED); // Make the text red so it stands out
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                panel.resetGraph();
+            }
+        });
+
+        // Adding all the buttons to the panel
+        buttonPanel.add(bfsButton);
+        buttonPanel.add(dijkstraButton);
+        buttonPanel.add(aStarButton);
+        buttonPanel.add(resetButton); // Added Reset to the end
 
         jframe.add(panel, BorderLayout.CENTER);
-        jframe.add(bfsButton, BorderLayout.SOUTH);
+        jframe.add(buttonPanel, BorderLayout.SOUTH);
 
         jframe.setVisible(true);
-
     }
 }
